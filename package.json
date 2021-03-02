@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Junkier/nodejs-interview/issues"
   },
-  "homepage": "https://github.com/Junkier/nodejs-interview#readme"
+  "homepage": "https://github.com/Junkier/nodejs-interview#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
