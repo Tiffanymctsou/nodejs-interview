@@ -11,10 +11,10 @@ function getPayload(){
     var brief           = $("#brief").val();
 
     var level = $("#level").find("i")
-                .get()
-                .map(function(ele){  return $(ele).css("font-weight" ) })
-                .filter(function(w){ return Number(w) === 600; })
-                .length;
+        .get()
+        .map(function(ele){  return $(ele).css("font-weight" ); })
+        .filter(function(w){ return Number(w) === 600; })
+        .length;
 
     var author    = $("#author").val();
     var content   = $("#content").val();
@@ -70,18 +70,18 @@ function updateToDoItem(){
     if(!isValid) return;
 
     axios.put("/to-do-list/detail/"+payload["to_do_id"] + "?mode="+mode , payload)
-         .then(function(response){
-             if(response.data.message === "ok."){
-                 alert("更新完成！");
-                 location.href = "/to-do-list/page";
-             };
-         })
-         .catch(function(err){
+        .then(function(response){
+            if(response.data.message === "ok."){
+                alert("更新完成！");
+                location.href = "/to-do-list/page";
+            };
+        })
+        .catch(function(err){
             if(err.response && err.response.status === 404){
                 alert("找不到該 API !");
                 return;
             };
-         });
+        });
 };
 
 

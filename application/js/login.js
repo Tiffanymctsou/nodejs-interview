@@ -14,15 +14,15 @@ $(function(){
 
 
         axios.post("/auth",{ account , passwd })
-             .then(function(res){
+            .then(function(res){
                 var message = res.data.message;
                 changeErrMsgState(message);
 
                 location.href = res.data.redirect;
-             })
-             .catch(function(err){
-                 var message = err.response.data.message;
-                 changeErrMsgState(message);
-             });
+            })
+            .catch(function(err){
+                var message = err.response.data.message;
+                changeErrMsgState(message);
+            });
     });
 });

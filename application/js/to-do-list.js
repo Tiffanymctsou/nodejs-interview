@@ -5,7 +5,7 @@ $(function(){
         $("a[aria-expanded=true]").attr("aria-expanded", "false");
     });
 
-    getListData()
+    getListData();
     
 });
 
@@ -13,16 +13,17 @@ $(function(){
 function getListData(){
 
     axios.get("/to-do-list/list")
-         .then(function(response){
+        .then(function(response) {
+            console.log(response.data.result);
             var data = response.data.result;
             createTable(data);
-         })
-         .catch(function(err){
-             if(err.response && err.response.status === 404){
+        })
+        .catch(function(err) {
+            if(err.response && err.response.status === 404){
                 alert("找不到該 API !");
                 return;
-             };
-         });
+            };
+        });
 };
 
 
@@ -79,7 +80,7 @@ function createTable(data){
                     <td>${d.reserved_time}</td>
                     <td><a href="/to-do-list/detail/${d.to_do_id}">${d.brief}</a></td>
                     <td>
-                        ${(new Array(d.level)).fill(0).map(function(_){ return `<i class="fas fa-bell bell-icon"></i>`}).join("\n")}
+                        ${(new Array(d.level)).fill(0).map(function(_){ return `<i class="fas fa-bell bell-icon"></i>`;}).join("\n")}
                     </td>
                     <td>${d.author}</td>
                 </tr>`;
