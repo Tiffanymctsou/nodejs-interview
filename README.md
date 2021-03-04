@@ -14,15 +14,14 @@
 2. `npm install` all the packages
 3. Create database with `to_do_list.sql`
 4. Set up `.env` file
-
-    // DATABASE
-    LOCAL_DB_HOST = localhost
-    LOCAL_DB_USER = your_user
-    LOCAL_DB_PWD = your_password
-    LOCAL_DB = to_do_list
-    
-    // HASH
-    BCRYPT_SALT = 10
-    JWT_SECRET = todolist
-    TOKEN_EXPIRE = '10m'
+>     // DATABASE
+>     LOCAL_DB_HOST = localhost
+>     LOCAL_DB_USER = your_user
+>     LOCAL_DB_PWD = your_password
+>     LOCAL_DB = to_do_list
+>     
+>     // HASH
+>     BCRYPT_SALT = 10
+>     JWT_SECRET = todolist
+>     TOKEN_EXPIRE = '10m'
 5. `node / nodemon server.js`
