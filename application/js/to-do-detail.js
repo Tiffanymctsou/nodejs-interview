@@ -79,7 +79,7 @@ function updateToDoItem(){
             if(err.response && err.response.status === 404){
                 alert("找不到該 API !");
                 return;
-            };
+            }
         });
 };
 

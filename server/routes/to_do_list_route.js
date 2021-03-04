@@ -8,7 +8,11 @@ const {
     updateList
 } = require('../controllers/to_do_list_controller');
 
-router.route('/to-do-list/list').get(wrapAsync(getList));
+const {
+    verifyToken
+} = require('../controllers/member_controller');
+
+router.route('/to-do-list/list').get(verifyToken, wrapAsync(getList));
 
 router.route('/to-do-list/detail/create/page').get(wrapAsync(createList));
 

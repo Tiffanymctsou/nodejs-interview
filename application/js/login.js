@@ -17,7 +17,8 @@ $(function(){
             .then(function(res){
                 var message = res.data.message;
                 changeErrMsgState(message);
-
+                // To store token
+                window.localStorage.setItem("Authorization", res.data.accessToken);
                 location.href = res.data.redirect;
             })
             .catch(function(err){

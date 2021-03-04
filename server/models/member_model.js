@@ -14,7 +14,6 @@ const createMember = async (memberInfo) => {
             return { error: "Request Error: Account already exists." };
         }
         memberInfo.password = bcrypt.hashSync(memberInfo.password, salt);
-        console.log(memberInfo);
         const sqlQuery = 'INSERT INTO members SET ?';
         const result = await query(sqlQuery, memberInfo);
         await commit();
@@ -25,6 +24,27 @@ const createMember = async (memberInfo) => {
     }
 };
 
+const nativeLogin = async (account, password) => {
+    try {
+        const member = await query('SELECT name, password FROM members WHERE account = ?', [account]);
+        if (member.length === 0) {
+            return { message: '用戶不存在！' };
+        }
+        const memberPassword = member[0].password;
+        if (!bcrypt.compareSync(password, memberPassword)) {
+            return { message: '密碼錯誤！' };
+        }
+        const name = member[0].name;
+        const accessToken = 'Bearer ' + jwt.sign({ account: account, name: name }, secret, { expiresIn: expire });
+        return { templateName: name, accessToken: accessToken };
+    } catch (error) {
+        await rollback();
+        return { error };
+    }
+    
+};
+
 module.exports = {
-    createMember
+    createMember,
+    nativeLogin
 };

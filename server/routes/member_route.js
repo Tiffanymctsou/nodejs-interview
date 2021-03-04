@@ -3,8 +3,7 @@ const { wrapAsync } = require("../../util/util");
 
 const {
     createMember,
-    nativeLogin,
-    verifyToken
+    nativeLogin
 } = require('../controllers/member_controller');
 
 router.route('/register').post(wrapAsync(createMember));

@@ -1,13 +1,21 @@
 const Member = require('../models/member_model');
-const salt = parseInt(process.env.BCRYPT_SALT);
 const secret = process.env.JWT_SECRET;
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const expire = process.env.TOKEN_EXPIRE;
 
+const verifyToken = async (req, res, next) => {
+    const header = req.header('Authorization');
+    const token = header.replace('Bearer ', '');
+    jwt.verify(token, secret, (err, decodedData) => {
+        if (err) {
+            res.status(403).send({ message: err.message });
+            return;
+        }
+        req.templateName = decodedData.name;
+        next();
+    });
+};
 const createMember = async (req, res) => {
     const memberInfo = req.body;
-    console.log(memberInfo);
     if (!memberInfo) {
         res.status(400).json({
             error: "Request Error: Please fill in the required information."
@@ -18,9 +26,7 @@ const createMember = async (req, res) => {
     const { name, account, password } = memberInfo;
 
     if (!name || !account || !password) {
-        res.status(400).json({
-            error: "Request Error: Information missing.",
-        });
+        res.status(400).json({ error: "Request Error: Information missing.",});
         return;
     }
     
@@ -34,12 +40,25 @@ const createMember = async (req, res) => {
 };
 
 const nativeLogin = async (req, res) => {
-    
+    const { account, passwd } = req.body;
+    if (!account) {
+        res.status(400).json({ message: '請輸入帳號！' });
+        return;
+    }
+    if (!passwd) {
+        res.status(400).json({ message: '請輸入密碼！' });
+        return;
+    }
+
+    const result = await Member.nativeLogin(account, passwd);
+    if (result.message) {
+        res.status(403).json(result);
+        return;
+    }
+    result.redirect = '/welcome';
+    res.status(200).json(result);
 };
 
-const verifyToken = async (req, res) => {
-    
-};
 
 module.exports = {
     createMember,

@@ -12,9 +12,8 @@ $(function(){
 
 function getListData(){
 
-    axios.get("/to-do-list/list")
+    userRequest.get("/to-do-list/list")
         .then(function(response) {
-            console.log(response.data.result);
             var data = response.data.result;
             createTable(data);
         })
@@ -22,7 +21,12 @@ function getListData(){
             if(err.response && err.response.status === 404){
                 alert("找不到該 API !");
                 return;
-            };
+            }  else if (err.response.status === 403) {
+                alert("請重新登入！");
+                window.localStorage.removeItem("Authorization");
+                window.location.href = "/login";
+                return;
+            }
         });
 };
 
