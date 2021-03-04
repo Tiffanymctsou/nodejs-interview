@@ -9,6 +9,7 @@
 		- password: test002
 
 If you wish to create an account, a `POST API` is provided: `/register`
+
 **Request data format**
 
     {
