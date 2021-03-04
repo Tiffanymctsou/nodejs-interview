@@ -8,6 +8,16 @@
 		- account: test002
 		- password: test002
 
+If you wish to create an account, a `POST API` is provided: `/register`
+**Request data format**
+
+    {
+	    "name":  "yourName",
+	    "account":  "yourAccount",
+	    "password":  "yourPassword"
+    }
+
+
 ## How to run
 
 1. Clone / Pull the latest repository
