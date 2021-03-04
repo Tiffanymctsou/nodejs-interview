@@ -14,11 +14,12 @@ app.use(bodyParser.urlencoded());
 
 app.use('/', [
     require('./server/routes/direct_route'),
+    require('./server/routes/member_route'),
     require('./server/routes/to_do_list_route')
 ]);
 
 app.use(function (req, res, next) {
-    res.status(404).send('Not Found');
+    res.status(404).render('404.html');
 });
 
 // Error handling

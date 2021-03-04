@@ -23,11 +23,19 @@ const updateList = async (req, res) => {
     switch (mode) {
     case 'create': {
         const result = await ToDoList.insertList(listDetails);
+        if (result.error) {
+            res.status(403).json(result.error);
+            return;
+        }
         res.status(200).json(result);
         break;
     }
     case 'edit': {
         const result = await ToDoList.updateList(to_do_id, listDetails);
+        if (result.error) {
+            res.status(403).json(result.error);
+            return;
+        }
         res.status(200).json(result);
         break;
     }
