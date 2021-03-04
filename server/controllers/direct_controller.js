@@ -3,10 +3,7 @@ const renderWelcome = async (req, res) => {
 };
 
 const renderList = async (req, res) => {
-    const data = {
-        subject: ''
-    };
-    res.render('to-do-list.html', data);
+    res.render('to-do-list.html');
 };
 
 module.exports = {
